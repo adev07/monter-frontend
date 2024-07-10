@@ -3,6 +3,8 @@ import axios from "axios";
 import TextInput from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CompleteProfile() {
   const navigate = useNavigate();
@@ -17,35 +19,37 @@ function CompleteProfile() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Basic validation
+    if (!email || !location || !age || !work || !dob || !description) {
+      toast.error('Please fill out all fields');
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/profile-completion`,
-        {
-          email,
-          location,
-          age,
-          work,
-          dob,
-          description,
-        }
+        { email, location, age, work, dob, description }
       );
       localStorage.setItem('token', response.data.token);
-      alert(response.data.message);
-      navigate("/dasboard");
+      toast.success(response.data.message);
+      navigate("/dashboard");
       setError("");
     } catch (error) {
       setError(error.response.data.error);
+      toast.error(error.response.data.error);
     }
   };
 
   return (
-    <div className="container mx-auto max-w-md mt-10 min-h-screen">
-      <h2 className="text-3xl font-bold mb-6 text-center text-indigo-600">
+    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+    <div className="container mx-auto max-w-md min-h-screen pb-2">
+      <h2 className="text-3xl font-bold py-4 text-center  text-white">
         Complete Profile
       </h2>
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-md border rounded px-8 pt-6 pb-8 mb-4 flex flex-col items-center justify-center"
+        className="bg-white shadow-md border rounded px-8 pt-6 pb-8 flex flex-col items-center justify-center"
       >
         <TextInput
           label="Email"
@@ -107,6 +111,7 @@ function CompleteProfile() {
         </Button>
         {error && <div className="text-red-500 mt-2 text-center">{error}</div>}
       </form>
+      </div>
     </div>
   );
 }
