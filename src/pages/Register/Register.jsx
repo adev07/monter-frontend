@@ -56,10 +56,11 @@ function Register() {
   };
 
   return (
-    <div className="container mx-auto max-w-md mt-28">
+    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+    <div className="container mx-auto max-w-md pt-24">
       <ToastContainer />
-      <h2 className="text-3xl font-bold mb-6 text-center text-indigo-600">
-        Register
+      <h2 className="text-3xl font-bold mb-6 text-center text-white">
+        REGISTER
       </h2>
       <form
         onSubmit={handleSubmit}
@@ -100,8 +101,7 @@ function Register() {
         <Button type="submit" className="mt-4">
           Register
         </Button>
-      </form>
-      <p className="text-sm text-center text-gray-600 font-semibold">
+        <p className="text-sm text-center text-gray-600 font-semibold mt-4">
         Already have an account?{" "}
         <a
           href="/"
@@ -110,6 +110,9 @@ function Register() {
           Login
         </a>
       </p>
+      </form>
+      
+    </div>
     </div>
   );
 }

@@ -38,44 +38,46 @@ function Login() {
   };
 
   return (
-    <div className="container mx-auto max-w-md mt-20">
-      <ToastContainer />
-      <h2 className="text-3xl font-bold mb-6 text-center text-indigo-600">
-        Login
-      </h2>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md border rounded px-8 py-[100px] mb-4 flex flex-col items-center justify-center"
-      >
-        <TextInput
-          label="Email or Username"
-          id="emailOrUsername"
-          value={emailOrUsername}
-          onChange={(e) => setEmailOrUsername(e.target.value)}
-          required
-          type="text"
-        />
-        <TextInput
-          label="Password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          type="password"
-        />
-        <Button type="submit" className="mt-4">
-          Login
-        </Button>
-      </form>
-      <p className="text-sm text-center text-gray-600 font-semibold">
-        Don't have an account?{" "}
-        <a
-          href="/register"
-          className="text-indigo-600 hover:text-indigo-800 font-semibold"
+    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+      <div className="container mx-auto max-w-md pt-20">
+        <ToastContainer />
+        <h2 className="text-3xl font-bold mb-6 text-center text-white">
+          LOGIN
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-md border rounded px-8 py-[90px] flex flex-col items-center justify-center"
         >
-          Register
-        </a>
-      </p>
+          <TextInput
+            label="Email or Username"
+            id="emailOrUsername"
+            value={emailOrUsername}
+            onChange={(e) => setEmailOrUsername(e.target.value)}
+            required
+            type="text"
+          />
+          <TextInput
+            label="Password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            type="password"
+          />
+          <Button type="submit" className="mt-4">
+            Login
+          </Button>
+          <p className="text-sm text-center text-gray-600 font-semibold mt-4">
+            Don't have an account?{" "}
+            <a
+              href="/register"
+              className="text-indigo-600 hover:text-indigo-800 font-semibold"
+            >
+              Register
+            </a>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

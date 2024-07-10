@@ -72,7 +72,7 @@ const BookDetails = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
       <ToastContainer />
       <header className="bg-white shadow py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
         <div className="flex gap-4">

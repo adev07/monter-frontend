@@ -6,6 +6,7 @@ import Modal from "../../components/Modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
+import { FaBook, FaUser, FaTag } from 'react-icons/fa';
 
 const BookLists = () => {
   const [books, setBooks] = useState([]);
@@ -53,7 +54,7 @@ const BookLists = () => {
   return (
     <div className="">
       <ToastContainer />
-      <header className="bg-white shadow py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
+      <header className="bg-white shadow py-6 px-4 sm:px-6 lg:px-8 flex justify-between sticky top-0">
         <div className="flex gap-4">
           <h1
             className="text-[16px] font-semibold text-gray-700 cursor-pointer"
@@ -84,10 +85,10 @@ const BookLists = () => {
         reloadBooks={reloadBooks}
         width={600}
       />
-      <div className="lg:px-8 mx-auto py-8 min-h-screen bg-gray-100">
-        <div className="flex justify-between items-center">
+      <div className="lg:px-8 mx-auto py-8 min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+        <div className="flex justify-between items-center mb-8">
           <div>
-            <h2 className="text-xl font-semibold">Book Listings</h2>
+            <h2 className="text-3xl font-bold text-white">Book Listings</h2>
           </div>
           <div>
             <Button onClick={handleAddBooksClick}>Add New Book</Button>
@@ -95,25 +96,33 @@ const BookLists = () => {
         </div>
 
         {loading ? (
-          <p>Loading books...</p>
+          <p className="text-white text-center">Loading books...</p>
         ) : books.length === 0 ? (
-          <p>No books found.</p>
+          <p className="text-white text-center">No books found.</p>
         ) : (
-          <ul className="space-y-4 mt-4">
-            {books.map((book) => (
-              <li
-                key={book._id}
-                className="bg-white shadow overflow-hidden rounded-lg p-4 border"
-              >
-                <Link to={`/books/${book._id}`} className="block">
-                  <h3 className="text-xl font-bold">{book.title}</h3>
-                  <p className="text-gray-500">Author: {book.author}</p>
-                  <p className="text-gray-500">Genre: {book.genre}</p>
-                  <p className="mt-2">{book.description}</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {books.map((book) => (
+            <li
+              key={book._id}
+              className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition duration-300"
+            >
+              <Link to={`/books/${book._id}`} className="block p-6">
+                <h3 className="text-2xl font-bold text-gray-900 flex items-center">
+                  <FaBook className="mr-2 text-blue-500" /> {book.title}
+                </h3>
+                <p className="text-gray-800 flex items-center mt-2">
+                  <FaUser className="mr-2 text-blue-500" /> Author: {book.author}
+                </p>
+                <p className="text-gray-800 flex items-center mt-2">
+                  <FaTag className="mr-2 text-blue-500" /> Genre: {book.genre}
+                </p>
+                <p className="mt-4 text-gray-700 flex items-center">
+                  {book.description}
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
         )}
       </div>
     </div>

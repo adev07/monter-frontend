@@ -5,6 +5,7 @@ import Modal from "../../components/ReviewModal/ReviwModal";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { FaBook, FaUser, FaTag } from "react-icons/fa";
 
 const AddReview = () => {
   const [books, setBooks] = useState([]);
@@ -12,7 +13,7 @@ const AddReview = () => {
   const [selectedBook, setSelectedBook] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reviewFormData, setReviewFormData] = useState({
-    rating: 0,
+    rating: 1,
     comment: "",
   });
 
@@ -50,6 +51,7 @@ const AddReview = () => {
       );
       console.log(response.data);
       setIsModalOpen(false);
+      toast.success("Review added successfully");
     } catch (error) {
       console.error("Error adding review:", error);
     }
@@ -80,9 +82,9 @@ const AddReview = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
       <ToastContainer />
-      <header className="bg-white shadow py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
+      <header className="bg-white shadow py-6 px-4 sm:px-6 lg:px-8 flex justify-between sticky top-0">
         <div className="flex gap-4">
           <h1
             className="text-[16px] font-semibold text-gray-700 cursor-pointer"
@@ -107,36 +109,38 @@ const AddReview = () => {
           <Button onClick={handleLogout}>Logout</Button>
         </div>
       </header>
-      <div className="max-w-4xl mx-auto py-8">
+      <div className="px-8 py-4">
         <div>
-          <h2 className="text-xl font-semibold mb-4">Add Review</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">Add Review</h2>
         </div>
 
         {loading ? (
-          <p>Loading books...</p>
+          <p className="text-white">Loading books...</p>
         ) : books.length === 0 ? (
-          <p>No books found.</p>
+          <p className="text-white">No books found.</p>
         ) : (
-          <ul className="space-y-4 mt-4">
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             {books.map((book) => (
               <li
                 key={book._id}
-                className="bg-white shadow overflow-hidden rounded-lg p-4 border flex items-center justify-between"
+                className="bg-white shadow-lg overflow-hidden rounded-lg p-4 border flex flex-col justify-between"
               >
-                <Link
-                  to={`/books/${book._id}`}
-                  className="block  max-w-[600px]"
-                >
-                  <h3 className="text-xl font-bold">{book.title}</h3>
-                  <p className="text-gray-500">Author: {book.author}</p>
-                  <p className="text-gray-500">Genre: {book.genre}</p>
-                  <p className="mt-2">{book.description}</p>
+                <Link to={`/books/${book._id}`} className="block mb-4">
+                  <h3 className="text-2xl font-bold text-gray-900 flex items-center">
+                    <FaBook className="mr-2 text-blue-500" /> {book.title}
+                  </h3>
+                  <p className="text-gray-800 flex items-center mt-2">
+                    <FaUser className="mr-2 text-blue-500" /> Author:{" "}
+                    {book.author}
+                  </p>
+                  <p className="text-gray-800 flex items-center mt-2">
+                    <FaTag className="mr-2 text-blue-500" /> Genre: {book.genre}
+                  </p>
+                  <p className="mt-2 text-gray-800">{book.description}</p>
                 </Link>
-                <div>
-                  <Button onClick={() => handleBookClick(book._id)}>
-                    Add Review
-                  </Button>
-                </div>
+                <Button onClick={() => handleBookClick(book._id)}>
+                  Add Review
+                </Button>
               </li>
             ))}
           </ul>

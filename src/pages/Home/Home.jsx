@@ -6,6 +6,16 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TextInput from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
+import {
+  FaUser,
+  FaEnvelope,
+  FaUserTag,
+  FaMapMarkerAlt,
+  FaBirthdayCake,
+  FaBriefcase,
+  FaCalendar,
+  FaInfoCircle,
+} from "react-icons/fa";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -119,7 +129,7 @@ function Dashboard() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <ToastContainer />
-      <header className="bg-white shadow py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
+      <header className="bg-white shadow py-6 px-4 sm:px-6 lg:px-8 flex justify-between sticky top-0">
         <div className="flex gap-4">
           <h1
             className="text-[16px] font-semibold text-gray-700 cursor-pointer"
@@ -147,47 +157,91 @@ function Dashboard() {
           <Button onClick={handleLogout}>Logout</Button>
         </div>
       </header>
-      <main className="flex-1 py-6 px-8">
-        <div className="flex justify-between items-center pb-4">
-          <div className="text-xl font-semibold ">Profile Information</div>
+      <main className="flex-1 py-6 px-8 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 min-h-screen">
+        <div className="flex justify-between items-center pb-4 mb-6">
+          <div>
+            <h2 className="text-3xl font-bold text-white">
+              Profile Information
+            </h2>
+          </div>
           <div>
             <Button onClick={() => setIsEditing(true)}>Edit Profile</Button>
           </div>
         </div>
+
         {user && !isEditing && (
-          <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
-            <div className="bg-white shadow-md rounded-lg p-6 grid sm:grid-cols-2 grid-cols-1">
-              <p className="mb-2">
-                <span className="font-bold">Name:</span> {user.name}
-              </p>
-              <p className="mb-2">
-                <span className="font-bold">Email:</span> {user.email}
-              </p>
-              <p className="mb-2">
-                <span className="font-bold">Username:</span> {user.userName}
-              </p>
-              <p className="mb-2">
-                <span className="font-bold">Location:</span> {user.location}
-              </p>
-              <p className="mb-2">
-                <span className="font-bold">Age:</span> {user.age}
-              </p>
-              <p className="mb-2">
-                <span className="font-bold">Work:</span> {user.work}
-              </p>
-              <p className="mb-2">
-                <span className="font-bold">DOB:</span>{" "}
-                {moment(user.dob).format("MMMM Do, YYYY")}
-              </p>
-              <p className="mb-2">
-                <span className="font-bold">Description:</span>{" "}
-                {user.description}
-              </p>
+          <div className="grid grid-cols-1 gap-6">
+            <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex flex-col space-y-4">
+                  <div className="flex items-center">
+                    <FaUser className="mr-2 text-gray-700" />
+                    <p>
+                      <span className="font-bold text-gray-700">Name:</span>{" "}
+                      {user.name}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <FaEnvelope className="mr-2 text-gray-700" />
+                    <p>
+                      <span className="font-bold text-gray-700">Email:</span>{" "}
+                      {user.email}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <FaUserTag className="mr-2 text-gray-700" />
+                    <p>
+                      <span className="font-bold text-gray-700">Username:</span>{" "}
+                      {user.userName}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <FaMapMarkerAlt className="mr-2 text-gray-700" />
+                    <p>
+                      <span className="font-bold text-gray-700">Location:</span>{" "}
+                      {user.location}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col space-y-4">
+                  <div className="flex items-center">
+                    <FaBriefcase className="mr-2 text-gray-700" />
+                    <p>
+                      <span className="font-bold text-gray-700">Work:</span>{" "}
+                      {user.work}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <FaCalendar className="mr-2 text-gray-700" />
+                    <p>
+                      <span className="font-bold text-gray-700">Age:</span>{" "}
+                      {user.age}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <FaBirthdayCake className="mr-2 text-gray-700" />
+                    <p>
+                      <span className="font-bold text-gray-700">DOB:</span>{" "}
+                      {moment(user.dob).format("MMMM Do, YYYY")}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <FaInfoCircle className="mr-2 text-gray-700" />
+                    <p>
+                      <span className="font-bold text-gray-700">
+                        Description:
+                      </span>{" "}
+                      {user.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
+
         {isEditing && (
-          <div className="bg-white shadow-md rounded-lg p-6">
+          <div className="bg-white shadow-lg rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
             <form
               onSubmit={handleFormSubmit}
@@ -271,12 +325,13 @@ function Dashboard() {
                 )}
               </div>
               <div className="col-span-2 flex justify-between items-center mt-4">
-                <div>
-                  <Button onClick={() => setIsEditing(false)}>Cancel</Button>
-                </div>
-                <div>
-                  <Button type="submit">Save</Button>
-                </div>
+                <Button
+                  label="Cancel"
+                  icon="pi pi-times"
+                  className="p-button-outlined p-button-danger"
+                  onClick={() => setIsEditing(false)}
+                />
+                <Button type="submit">Save</Button>
               </div>
             </form>
           </div>
