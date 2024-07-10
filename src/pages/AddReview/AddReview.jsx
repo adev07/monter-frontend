@@ -107,7 +107,7 @@ const AddReview = () => {
           <Button onClick={handleLogout}>Logout</Button>
         </div>
       </header>
-      <div className="max-w-4xl mx-auto pt-8">
+      <div className="max-w-4xl mx-auto py-8">
         <div>
           <h2 className="text-xl font-semibold mb-4">Add Review</h2>
         </div>
